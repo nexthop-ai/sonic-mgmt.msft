@@ -5,7 +5,7 @@ from tests.common import config_reload
 from tests.common.platform.processes_utils import wait_critical_processes
 
 pytestmark = [
-    pytest.mark.topology('t0', 't1'),
+    pytest.mark.topology('t0', 't1', 't2', 'lt2'),
     pytest.mark.disable_loganalyzer,
 ]
 
