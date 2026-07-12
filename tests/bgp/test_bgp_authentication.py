@@ -14,7 +14,7 @@ from tests.common.utilities import wait_until
 logger = logging.getLogger(__name__)
 
 pytestmark = [
-    pytest.mark.topology('t2')
+    pytest.mark.topology('t2', 'lt2')
 ]
 
 BGP_PASS = "sonic.123"

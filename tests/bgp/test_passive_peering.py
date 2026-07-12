@@ -14,7 +14,7 @@ from tests.common.helpers.constants import DEFAULT_NAMESPACE
 logger = logging.getLogger(__name__)
 
 pytestmark = [
-    pytest.mark.topology('t2')
+    pytest.mark.topology('t2', 'lt2')
 ]
 
 bgp_config_sleeptime = 90
