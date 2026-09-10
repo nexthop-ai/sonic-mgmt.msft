@@ -1798,7 +1798,8 @@ class TestQosSai(QosSaiBase):
             "pkts_num_leak_out": qosConfig[portSpeedCableLength]["pkts_num_leak_out"],
             "hwsku": dutTestParams['hwsku'],
             "topo": dutTestParams["topo"],
-            "qos_remap_enable": qos_remap_enable
+            "qos_remap_enable": qos_remap_enable,
+            "dut_asic": dutConfig.get("dutAsic", "")
         })
 
         if "platform_asic" in dutTestParams["basicParams"]:
