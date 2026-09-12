@@ -65,8 +65,8 @@ class GenerateGoldenConfigDBModule(object):
                                     dut_loopbacks=dict(required=False, type='dict', default={}),
                                     console_ports=dict(required=False, type='dict', default=None),
                                     bgp_confd_asn=dict(required=False, type='str', default=None),
-                                    bgp_confd_peers=dict(required=False, type='str', default=None)),
-                                    device_conn=dict(required=False, type='dict', default={}),
+                                    bgp_confd_peers=dict(required=False, type='str', default=None),
+                                    device_conn=dict(required=False, type='dict', default={})),
                                     supports_check_mode=True)
         self.topo_name = self.module.params['topo_name']
         self.port_index_map = self.module.params['port_index_map']
