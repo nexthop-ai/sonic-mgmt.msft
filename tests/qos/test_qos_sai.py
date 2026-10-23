@@ -181,6 +181,21 @@ def skip_test_on_no_lossless_pg(portSpeedCableLength):
         pytest.skip("skip the test due to no buffer lossless pg")
 
 
+def skip_uncalibrated_watermark_profile(qosConfig, profile, portSpeedCableLength):
+    """Skip a watermark test whose profile has no params for this port profile.
+
+    Watermark params are measured per (asic, topology, port speed/cable length)
+    and are only present for the profiles that have actually been calibrated on
+    hardware. Where they are absent the test has nothing to assert against, and
+    without this guard it dies on a bare KeyError for its own profile key, which
+    reads like a product failure rather than missing coverage.
+    """
+    if profile not in qosConfig:
+        pytest.skip(
+            "No calibrated '{}' params for port profile {}".format(
+                profile, portSpeedCableLength))
+
+
 class TestQosSai(QosSaiBase):
     """TestQosSai derives from QosSaiBase and contains collection of QoS SAI test cases.
 
@@ -1869,6 +1884,8 @@ class TestQosSai(QosSaiBase):
             else:
                 qosConfig = dutQosConfig["param"]
 
+        skip_uncalibrated_watermark_profile(qosConfig, pgProfile, portSpeedCableLength)
+
         if dutTestParams["basicParams"].get("platform_asic", None) \
                 == "cisco-8000":
             if not get_src_dst_asic_and_duts['single_asic_test']:
@@ -1959,6 +1976,9 @@ class TestQosSai(QosSaiBase):
             qosConfig = dutQosConfig["param"][portSpeedCableLength]["breakout"]
         else:
             qosConfig = dutQosConfig["param"][portSpeedCableLength]
+
+        skip_uncalibrated_watermark_profile(
+            qosConfig, "wm_pg_headroom", portSpeedCableLength)
 
         self.updateTestPortIdIp(dutConfig, get_src_dst_asic_and_duts)
 
@@ -2082,12 +2102,16 @@ class TestQosSai(QosSaiBase):
                 qosConfig = dutQosConfig["param"][portSpeedCableLength]["breakout"]
             else:
                 qosConfig = dutQosConfig["param"][portSpeedCableLength]
+            skip_uncalibrated_watermark_profile(
+                qosConfig, queueProfile, portSpeedCableLength)
             triggerDrop = qosConfig[queueProfile]["pkts_num_trig_ingr_drp"]
         else:
             if queueProfile in list(dutQosConfig["param"][portSpeedCableLength].keys()):
                 qosConfig = dutQosConfig["param"][portSpeedCableLength]
             else:
                 qosConfig = dutQosConfig["param"]
+            skip_uncalibrated_watermark_profile(
+                qosConfig, queueProfile, portSpeedCableLength)
             triggerDrop = qosConfig[queueProfile]["pkts_num_trig_egr_drp"]
 
         self.updateTestPortIdIp(dutConfig, get_src_dst_asic_and_duts)
@@ -2190,6 +2214,8 @@ class TestQosSai(QosSaiBase):
             testParams["platform_asic"] = dutTestParams["basicParams"]["platform_asic"]
         else:
             testParams["platform_asic"] = None
+
+        testParams["dut_asic"] = dutConfig["dutAsic"]
 
         self.runPtfTest(
             ptfhost, testCase="sai_qos_tests.DscpToPgMapping",
