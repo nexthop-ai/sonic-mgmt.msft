@@ -2215,6 +2215,8 @@ class TestQosSai(QosSaiBase):
         else:
             testParams["platform_asic"] = None
 
+        testParams["dut_asic"] = dutConfig["dutAsic"]
+
         self.runPtfTest(
             ptfhost, testCase="sai_qos_tests.DscpToPgMapping",
             testParams=testParams
