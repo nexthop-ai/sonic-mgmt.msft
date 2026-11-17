@@ -10,11 +10,7 @@ from tests.bfd.bfd_helpers import get_ptf_src_port, get_backend_interface_in_use
 from tests.common.helpers.multi_thread_utils import SafeThreadPoolExecutor
 
 pytestmark = [
-<<<<<<< HEAD
-    pytest.mark.topology("t2"),
-=======
-    pytest.mark.topology("t2", "lt2", "lrh", "urh"),
->>>>>>> 993c1cb71e (Add lt2 marker for applicable t2 tests)
+    pytest.mark.topology("t2", "lt2"),
     pytest.mark.device_type('physical')
 ]
 

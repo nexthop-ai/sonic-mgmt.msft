@@ -25,11 +25,7 @@ bgp_sleep = 120
 bgp_id_textfsm = "./bgp/templates/bgp_id.template"
 
 pytestmark = [
-<<<<<<< HEAD
-    pytest.mark.topology('t2')
-=======
-    pytest.mark.topology('t2', 'lt2', 'lrh', 'urh')
->>>>>>> 993c1cb71e (Add lt2 marker for applicable t2 tests)
+    pytest.mark.topology('t2', 'lt2')
 ]
 
 

@@ -27,11 +27,7 @@ from tests.common.gu_utils import create_path, check_show_ip_intf
 # }
 
 pytestmark = [
-<<<<<<< HEAD
-    pytest.mark.topology('t0', 'm0', 'm1', 't2'),
-=======
-    pytest.mark.topology('t0', 'm0', 'm1', 't2', 'lt2', 'lrh', 'urh'),
->>>>>>> 993c1cb71e (Add lt2 marker for applicable t2 tests)
+    pytest.mark.topology('t0', 'm0', 'm1', 't2', 'lt2'),
 ]
 
 logger = logging.getLogger(__name__)
