@@ -17,7 +17,11 @@ from tests.common.utilities import wait_until
 logger = logging.getLogger(__name__)
 
 pytestmark = [
+<<<<<<< HEAD
     pytest.mark.topology('t2')
+=======
+    pytest.mark.topology('t2', 'lt2', 'lrh', 'urh')
+>>>>>>> 993c1cb71e (Add lt2 marker for applicable t2 tests)
 ]
 
 EOS_NEIGH_BACKUP_CONFIG_FILE = "/tmp/ipv6_nlri_eos_backup_config_{}"
